@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import Table from './Table';
 import Form from './Form';
+import Products from './Components/Products/Products';
 
 class App extends Component {
   state = {
-    characters: []
+    characters: [],
+    products: []
   };
 
   removeCharacter = index => {
@@ -25,6 +27,7 @@ class App extends Component {
 
   render() {
     const {characters} = this.state;
+    const {products} = this.state;
 
     return (
       <div className = "container">
@@ -34,6 +37,9 @@ class App extends Component {
         />
         <Form
           handleSubmit={this.handleSubmit}
+        />
+        <Products
+          productData={products}
         />
       </div>
     );
