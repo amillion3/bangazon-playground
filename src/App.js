@@ -5,8 +5,7 @@ import Products from './Components/Products/Products';
 
 class App extends Component {
   state = {
-    characters: [],
-    products: []
+    characters: []
   };
 
   removeCharacter = index => {
@@ -27,7 +26,6 @@ class App extends Component {
 
   render() {
     const {characters} = this.state;
-    const {products} = this.state;
 
     return (
       <div className = "container">
