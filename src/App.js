@@ -38,9 +38,9 @@ class App extends Component {
         <Form
           handleSubmit={this.handleSubmit}
         />
-        <Products
-          productData={products}
-        />
+        <Products>
+
+        </Products>
       </div>
     );
   }

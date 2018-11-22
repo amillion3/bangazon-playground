@@ -6,13 +6,14 @@ class Products extends Component {
     products: []
   };
 
-  handleClick = event => {
+  handleClick = () => {
     const url = 'https://localhost:44398/api/product';
     fetch(url)
-    .then(result => result.json())
-    .then(result => {
+    .then(product => product.json())
+    .then(console.log('it worked'))
+    .then(products => {
       this.setState({
-        products: result
+        products
       })
     })
   }
@@ -21,10 +22,18 @@ class Products extends Component {
     const {products} = this.state;
 
     const output = products.map((product, index) => {
-      return <li key={index}>{product}}</li>
+      return <li key={product.id}>{product.title}}</li>
     })
-    return <ul>{output}</ul>
-
+    return (
+      <div>
+        <input
+            type="button"
+            value="Get All Products"
+            onClick={this.handleClick}
+          />
+        <ul>{output}</ul>
+      </div>
+    );
   }
 }
 
