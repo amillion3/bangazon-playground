@@ -4,7 +4,6 @@ import React, {Component} from 'react';
 class Products extends Component {
   state = {
     products: [],
-    singleProduct: [],
     productId: 0
   };
 
@@ -23,9 +22,9 @@ class Products extends Component {
     const url = `https://localhost:44398/api/product/${this.state.productId}`;
     fetch(url)
     .then(product => product.json())
-    .then(singleProduct => {
+    .then(products => {
       this.setState({
-        singleProduct
+        products
       })
     })
   }
@@ -51,12 +50,12 @@ class Products extends Component {
     })
     return (
       <div>
+        <h2>PRODUCTS</h2>
         <input
             type="button"
             value="Get All Products"
             onClick={this.clickGetAllProducts}
           />
-        <ul>{output}</ul>
         <div>
           <form>
             <label>Single Product Id</label>
@@ -65,14 +64,15 @@ class Products extends Component {
               name="productId"
               value={productId}
               onChange={this.handleSingleProduct}
-            />
+              />
             <input
               type="button"
               value="Get Single Product"
               onClick={this.clickGetSingleProduct}
-            />
+              />
           </form>
         </div>
+        <ul>{output}</ul>
       </div>
     );
   }
