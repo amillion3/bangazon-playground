@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 class Products extends Component {
   state = {
     products: [],
-    productId: 0,
+    productGetId: 0,
     productDeleteId: 0,
     productUpdate: {
       id: 0,
@@ -30,7 +30,7 @@ class Products extends Component {
 
   // Single Product
   clickGetSingleProduct = () => {
-    const url = `https://localhost:44398/api/product/${this.state.productId}`;
+    const url = `https://localhost:44398/api/product/${this.state.productGetId}`;
     return fetch(url)
     .then(product => product.json())
     .then(products => {
@@ -48,15 +48,16 @@ class Products extends Component {
   // Delete Product
   clickDeleteProduct = () => {
     const url = `https://localhost:44398/api/product/${this.state.productDeleteId}`;
-    console.log(`https://localhost:44398/api/product/${this.state.productDeleteId}`);
     return fetch(url, {
       method: 'delete'
     })
     .then(product => product.json())
     .then(products => {
-      this.setState({
-        products
-      });
+      if (products) {
+        this.clickGetAllProducts();
+      } else {
+        alert('Error in deleting');
+      }
       // this part WILL need a second look
     })
   }
@@ -67,14 +68,35 @@ class Products extends Component {
     });
   }
   // Update Product
-  clickUpdateProduct = () => {
+  populateFieldsForUpdate = () => {
 
+  };
+  clickUpdateProductGet = () => {
+    const url = `https://localhost:44398/api/product/${this.state.productUpdate.id}`;
+    return fetch(url)
+    .then(product => product.json())
+    .then(productUpdate => {
+      productUpdate = productUpdate[0];
+      this.setState({
+        productUpdate
+      });
+    })
   }
   handleUpdateProduct = e => {
-
+    const {name, value} = e.target;
+    this.setState({
+      productUpdate:{
+        [name]: value
+      }
+    })
   }
   render () {
-    const {products, productId, productDeleteId, productUpdate} = this.state;
+    const {
+      products,
+      productGetId,
+      productDeleteId,
+      productUpdate
+    } = this.state;
 
     const output = products.map((product) => {
       return (
@@ -88,25 +110,28 @@ class Products extends Component {
     return (
       <div>
         <h2>PRODUCTS</h2>
-        <input
-          type="button"
-          value="Get All Products"
-          onClick={this.clickGetAllProducts}
-        />
-        <hr/>
-
         <div>
+          <h3>Get All products</h3>
+          <input
+            type="button"
+            value="Get All Products"
+            onClick={this.clickGetAllProducts}
+          />
+        </div>
+        <hr/>
+        <div className='div-product-get-single'>
           <form>
-            <label>Single Product Id</label>
+            <h3>Get Single Product</h3>
+            <label>Get by Id:</label><br/>
             <input
               type="number"
-              name="productId"
-              value={productId}
+              name="productGetId"
+              value={productGetId}
               onChange={this.handleSingleProduct}
               />
             <input
               type="button"
-              value="Get Single Product"
+              value="Get Product"
               onClick={this.clickGetSingleProduct}
               />
           </form>
@@ -114,7 +139,8 @@ class Products extends Component {
         <hr/>
         <div>
           <form>
-            <label>Delete Product By Id:</label>
+            <h3>Delete Product</h3>
+            <label>Delete by Id:</label><br/>
             <input
               type="number"
               name="productDeleteId"
@@ -123,7 +149,7 @@ class Products extends Component {
             />
             <input
               type="button"
-              value="Delete"
+              value="Delete Product"
               onClick={this.clickDeleteProduct}
             />
           </form>
@@ -131,7 +157,8 @@ class Products extends Component {
         <hr/>
         <div>
           <form>
-            <label>Product Id:</label>
+            <h3>Update Product</h3>
+            <label>Update by Id:</label><br/>
             <input
               type="number"
               name="id"
@@ -142,47 +169,47 @@ class Products extends Component {
               type="button"
               value="Grab This Id"
               onClick={this.clickUpdateProductGet}
-            />
+            /><br/>
             <label>Product Price:</label>
             <input
               type="number"
               name="price"
               value={productUpdate.price}
               onChange={this.handleUpdateProduct}
-            />
+            /><br/>
             <label>Product Title:</label>
             <input
               type="text"
               name="title"
               value={productUpdate.title}
               onChange={this.handleUpdateProduct}
-            />
+            /><br/>
             <label>Product Description:</label>
             <input
               type="text"
               name="description"
               value={productUpdate.description}
               onChange={this.handleUpdateProduct}
-            />
+            /><br/>
             <label>Product Quantity:</label>
             <input
               type="number"
               name="quantity"
               value={productUpdate.quantity}
               onChange={this.handleUpdateProduct}
-            />
+            /><br/>
             <label>Product Owner Id:</label>
             <input
               type="number"
               name="owner_id"
               value={productUpdate.owner_id}
               onChange={this.handleUpdateProduct}
-            />
+            /><br/>
             <input
               type="button"
               value="Update"
               onClick={this.clickUpdateProduct}
-            />
+            /><br/>
           </form>
         </div>
         <hr/>
