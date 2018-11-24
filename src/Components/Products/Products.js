@@ -52,12 +52,12 @@ class Products extends Component {
     return fetch(url, {
       method: 'delete'
     })
-    // this part WILL need a second look
     .then(product => product.json())
     .then(products => {
       this.setState({
         products
       });
+      // this part WILL need a second look
     })
   }
   handleDeleteProduct = e => {
@@ -70,7 +70,7 @@ class Products extends Component {
   clickUpdateProduct = () => {
 
   }
-  handleDeleteProduct = e => {
+  handleUpdateProduct = e => {
 
   }
   render () {
