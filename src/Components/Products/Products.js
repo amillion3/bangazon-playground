@@ -25,7 +25,6 @@ class Products extends Component {
     return fetch(url)
     .then(product => product.json())
     .then(products => {
-      console.log(products);
       this.setState({
         products
       })
@@ -44,9 +43,9 @@ class Products extends Component {
     return fetch(url, {
       method: 'delete'
     })
+    // this part WILL need a second look
     .then(product => product.json())
     .then(products => {
-      console.log(products);
       this.setState({
         products
       });
@@ -54,8 +53,6 @@ class Products extends Component {
   }
   handleDeleteProduct = e => {
     const {name, value} = e.target;
-    console.log(e.target.value);
-    console.log(e.target.name);
     this.setState({
       [name]: value
     });
