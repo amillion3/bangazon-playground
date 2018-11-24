@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Table from './Table';
 import Form from './Form';
+import Products from './Components/Products/Products';
 
 class App extends Component {
   state = {
@@ -35,6 +36,9 @@ class App extends Component {
         <Form
           handleSubmit={this.handleSubmit}
         />
+        <Products>
+
+        </Products>
       </div>
     );
   }
