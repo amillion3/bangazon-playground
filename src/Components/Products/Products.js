@@ -78,16 +78,18 @@ class Products extends Component {
     .then(product => product.json())
     .then(productUpdate => {
       productUpdate = productUpdate[0];
-      const oldProductId = this.state.productUpdate.id;
       this.setState({
         productUpdate
       });
+      console.log('1this.state after singleProductget', this.state.productUpdate);
+
       // This updates the id, which is not updated in the previous setState()
-      this.setState({
-        productUpdate: {
-          id: oldProductId
-        }
-      })
+      // this.setState({
+      //   productUpdate: {
+      //     id: oldProductId
+      //   }
+      // });
+      // console.log('2this.state after singleProductget', this.state.productUpdate);
     })
   }
   clickUpdateProduct = () => {
@@ -99,6 +101,7 @@ class Products extends Component {
       "owner_id": this.state.productUpdate.owner_id
     }
     const url = `https://localhost:44398/api/product/${this.state.productUpdate.id}`;
+    debugger;
     console.log(url);
     return fetch(url, {
       method: 'put',
@@ -109,11 +112,13 @@ class Products extends Component {
   }
   handleUpdateProduct = e => {
     const {name, value} = e.target;
+    console.log(name, value);
     this.setState({
-      productUpdate:{
+      productUpdate: {
         [name]: value
       }
-    })
+    });
+    console.log('handleUpdateProduct',this.state.productUpdate);
   }
   render () {
     const {
