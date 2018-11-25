@@ -71,16 +71,41 @@ class Products extends Component {
   populateFieldsForUpdate = () => {
 
   };
+  // Gets a single product, for the update methods
   clickUpdateProductGet = () => {
     const url = `https://localhost:44398/api/product/${this.state.productUpdate.id}`;
     return fetch(url)
     .then(product => product.json())
     .then(productUpdate => {
       productUpdate = productUpdate[0];
+      const oldProductId = this.state.productUpdate.id;
       this.setState({
         productUpdate
       });
+      // This updates the id, which is not updated in the previous setState()
+      this.setState({
+        productUpdate: {
+          id: oldProductId
+        }
+      })
     })
+  }
+  clickUpdateProduct = () => {
+    const dataForUpdate = {
+      "price": this.state.productUpdate.price,
+      "title": this.state.productUpdate.title,
+      "description": this.state.productUpdate.description,
+      "quantity": this.state.productUpdate.quantity,
+      "owner_id": this.state.productUpdate.owner_id
+    }
+    const url = `https://localhost:44398/api/product/${this.state.productUpdate.id}`;
+    return fetch(url, {
+      method: 'put',
+      body: dataForUpdate
+      // body: JSON.stringify(dataForUpdate)
+    })
+    .then(product => product.json())
+    };
   }
   handleUpdateProduct = e => {
     const {name, value} = e.target;
@@ -202,7 +227,7 @@ class Products extends Component {
             <input
               type="number"
               name="owner_id"
-              value={productUpdate.owner_id}
+              value={productUpdate.owner_Id}
               onChange={this.handleUpdateProduct}
             /><br/>
             <input
