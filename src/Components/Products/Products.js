@@ -99,13 +99,13 @@ class Products extends Component {
       "owner_id": this.state.productUpdate.owner_id
     }
     const url = `https://localhost:44398/api/product/${this.state.productUpdate.id}`;
+    console.log(url);
     return fetch(url, {
       method: 'put',
       body: dataForUpdate
       // body: JSON.stringify(dataForUpdate)
     })
     .then(product => product.json())
-    };
   }
   handleUpdateProduct = e => {
     const {name, value} = e.target;
@@ -187,7 +187,7 @@ class Products extends Component {
             <input
               type="number"
               name="id"
-              value={productUpdate.id}
+              value={this.id}
               onChange={this.handleUpdateProduct}
             />
             <input
