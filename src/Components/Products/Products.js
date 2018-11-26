@@ -74,6 +74,7 @@ class Products extends Component {
   // Gets a single product, for the update methods
   clickUpdateProductGet = () => {
     const url = `https://localhost:44398/api/product/${this.state.productUpdate.id}`;
+    // const oldProductId = this.state.productUpdate.id;
     return fetch(url)
     .then(product => product.json())
     .then(productUpdate => {
@@ -82,14 +83,6 @@ class Products extends Component {
         productUpdate
       });
       console.log('1this.state after singleProductget', this.state.productUpdate);
-
-      // This updates the id, which is not updated in the previous setState()
-      // this.setState({
-      //   productUpdate: {
-      //     id: oldProductId
-      //   }
-      // });
-      // console.log('2this.state after singleProductget', this.state.productUpdate);
     })
   }
   clickUpdateProduct = () => {
@@ -110,16 +103,90 @@ class Products extends Component {
     })
     .then(product => product.json())
   }
-  handleUpdateProduct = e => {
-    const {name, value} = e.target;
-    console.log(name, value);
+  handleUpdateId = e => {
     this.setState({
       productUpdate: {
-        [name]: value
+        id: e.target.value,
+        price: this.state.productUpdate.price,
+        title: this.state.productUpdate.title,
+        description: this.state.productUpdate.description,
+        quantity: this.state.productUpdate.quantity,
+        owner_id: this.state.productUpdate.owner_id
       }
     });
-    console.log('handleUpdateProduct',this.state.productUpdate);
-  }
+    console.log('updateId', this.state.productUpdate);
+  };
+  handleUpdatePrice = e => {
+    this.setState({
+      productUpdate: {
+        id: this.state.productUpdate.id,
+        price: e.target.value,
+        title: this.state.productUpdate.title,
+        description: this.state.productUpdate.description,
+        quantity: this.state.productUpdate.quantity,
+        owner_id: this.state.productUpdate.owner_id
+      }
+    });
+    console.log('updatePrice', this.state.productUpdate);
+
+  };
+  handleUpdateTitle = e => {
+    this.setState({
+      productUpdate: {
+        id: this.state.productUpdate.id,
+        price: this.state.productUpdate.price,
+        title: e.target.value,
+        description: this.state.productUpdate.description,
+        quantity: this.state.productUpdate.quantity,
+        owner_id: this.state.productUpdate.owner_id
+      }
+    });
+    console.log('updateTitle', this.state.productUpdate);
+
+  };
+  handleUpdateDescription = e => {
+    this.setState({
+      productUpdate: {
+        id: this.state.productUpdate.id,
+        price: this.state.productUpdate.price,
+        title: this.state.productUpdate.title,
+        description: e.target.value,
+        quantity: this.state.productUpdate.quantity,
+        owner_id: this.state.productUpdate.owner_id
+      }
+    });
+    console.log('updateDesc', this.state.productUpdate);
+
+  };
+  handleUpdateQuantity = e => {
+    this.setState({
+      productUpdate: {
+        id: this.state.productUpdate.id,
+        price: this.state.productUpdate.price,
+        title: this.state.productUpdate.title,
+        description: this.state.productUpdate.description,
+        quantity: e.target.value,
+        owner_id: this.state.productUpdate.owner_id
+      }
+    });
+    console.log('updateQuantity', this.state.productUpdate);
+
+  };
+  handleUpdateOwnerId = e => {
+    this.setState({
+      productUpdate: {
+        id: this.state.productUpdate.id,
+        price: this.state.productUpdate.price,
+        title: this.state.productUpdate.title,
+        description: this.state.productUpdate.description,
+        quantity: this.state.productUpdate.quantity,
+        owner_id: e.target.value
+      }
+    });
+    console.log('updateOwnerId', this.state.productUpdate);
+
+  };
+
   render () {
     const {
       products,
@@ -192,8 +259,8 @@ class Products extends Component {
             <input
               type="number"
               name="id"
-              value={this.id}
-              onChange={this.handleUpdateProduct}
+              value={this.state.productUpdate.id}
+              onChange={this.handleUpdateId}
             />
             <input
               type="button"
@@ -205,35 +272,35 @@ class Products extends Component {
               type="number"
               name="price"
               value={productUpdate.price}
-              onChange={this.handleUpdateProduct}
+              onChange={this.handleUpdatePrice}
             /><br/>
             <label>Product Title:</label>
             <input
               type="text"
               name="title"
               value={productUpdate.title}
-              onChange={this.handleUpdateProduct}
+              onChange={this.handleUpdateTitle}
             /><br/>
             <label>Product Description:</label>
             <input
               type="text"
               name="description"
               value={productUpdate.description}
-              onChange={this.handleUpdateProduct}
+              onChange={this.handleUpdateDescription}
             /><br/>
             <label>Product Quantity:</label>
             <input
               type="number"
               name="quantity"
               value={productUpdate.quantity}
-              onChange={this.handleUpdateProduct}
+              onChange={this.handleUpdateQuantity}
             /><br/>
             <label>Product Owner Id:</label>
             <input
               type="number"
               name="owner_id"
-              value={productUpdate.owner_Id}
-              onChange={this.handleUpdateProduct}
+              value={productUpdate.owner_id}
+              onChange={this.handleUpdateOwnerId}
             /><br/>
             <input
               type="button"
